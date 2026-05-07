@@ -2,7 +2,7 @@ T-Smart 2.0 - Taekwondo Performans Analiz Sistemi
 
 Bu döküman, **MBP 206 - Sistem Analizi ve Tasarımı** dersi kapsamında geliştirilen T-Smart 2.0 projesinin teknik altyapısını ve kurulum adımlarını içerir.
 
-## 🚀 1. Geliştirme Ortamı ve Teknolojiler (Görev 19)
+## 🚀 1. Geliştirme Ortamı ve Teknolojiler 
 Sistem mimarimizde belirlenen 3 katmanlı yapıya uygun olarak aşağıdaki teknolojiler seçilmiştir:
 
 * **Sunum Katmanı (Frontend):** HTML5, CSS3, JavaScript
