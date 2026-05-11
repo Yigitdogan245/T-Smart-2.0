@@ -9,8 +9,14 @@ Bu branch içerisinde TSmart 2.0 projesinin planlama, sistem tasarımı, fronten
 ## 1. Proje Planlama Süreci
 - Gantt Chart hazırlanarak proje görevleri ve süreç planlaması oluşturuldu.
 - Jira üzerinde backlog sistemi düzenlendi ve sprint planlamaları yapıldı.
-- 1. Sprint görevleri organize edildi.
+-  1. Sprint görevleri organize edildi.
 - Proje dokümantasyonları hazırlanıp düzenlendi.
+
+
+<img width="1600" height="550" alt="gant" src="https://github.com/user-attachments/assets/394dd082-66b8-44e1-aad7-1fb6b3c57973" />
+
+<img width="1600" height="604" alt="gant2" src="https://github.com/user-attachments/assets/02838051-b9e7-4d8e-b725-f0a7b9a07b0b" />
+
 
 <img width="1524" height="168" alt="jira" src="https://github.com/user-attachments/assets/9a059cb9-ed15-44a0-b84e-df269339b49e" />
 
@@ -24,11 +30,9 @@ Bu branch içerisinde TSmart 2.0 projesinin planlama, sistem tasarımı, fronten
 
 
 ## 2. Sistem Analizi ve Tasarımı
-- Use Case senaryoları oluşturuldu.
-- UML Use Case diyagramları hazırlandı.
 - Sistem mimarisi tasarlanarak frontend, backend ve database yapıları planlandı.
 
-<img width="927" height="768" alt="use case diyagram" src="https://github.com/user-attachments/assets/79fb25ec-68f6-4c44-8a57-df975a994970" />
+<img width="848" height="767" alt="sistem mimarisi" src="https://github.com/user-attachments/assets/a89da7e9-50be-4e3f-a903-dbde47a1cc7f" />
 
 
 ---
@@ -60,14 +64,38 @@ Aşağıdaki ekranlar için wireframe tasarımları oluşturuldu:
 HTML, CSS ve JavaScript kullanılarak sistemin temel ekranları kodlandı.
 
 Kodlanan başlıca bölümler:
-- Sidebar yapıları
-- Dashboard kart sistemleri
-- Video yönetim ekranları
-- Kariyer haritası ekranı
-- Hata analiz panelleri
-- Sporcu listeleme ekranları
+- Admin Paneli
+- Sporcu Paneli
+- Antrenör Paneli
+- Giriş Sistemi
+- Video Yönetim Ekranı
+- Kariyer Haritası
+- Hata Analiz Ekranları
+- Sporcu Listeleme Sistemi
+- Kuşak Yönetimi
+- Dashboard ve İstatistik Kartları
+- Sidebar Menü Yapıları
+
+
+<img width="416" height="467" alt="image" src="https://github.com/user-attachments/assets/6f6d6b8b-a2ec-4923-b4e4-f512141c23ea" />
+
+<img width="1913" height="911" alt="image" src="https://github.com/user-attachments/assets/b1c44bbf-01e5-4ad5-a241-f413be40aae0" />
+
+<img width="1919" height="913" alt="image" src="https://github.com/user-attachments/assets/90f6745b-13cb-424e-aefb-eedcb8114bf8" />
+
+<img width="1919" height="914" alt="image" src="https://github.com/user-attachments/assets/8848e3e9-0ebc-4ae0-937c-fb2a4d91d616" />
+
+<img width="1917" height="912" alt="image" src="https://github.com/user-attachments/assets/0dd7fed9-a916-41f0-99c1-d6f0dcdec362" />
+
+<img width="1920" height="915" alt="image" src="https://github.com/user-attachments/assets/5e5a5180-d5b3-4828-9c99-b83dfe817b76" />
+
+<img width="1920" height="916" alt="image" src="https://github.com/user-attachments/assets/89867a4f-ec78-4274-aa56-0bc8f053740c" />
+
+<img width="1920" height="910" alt="image" src="https://github.com/user-attachments/assets/ab3048b2-0bc3-438e-a2c1-0c7751c32298" />
+
 
 ---
+
 
 # 📌 Kullanılan Teknolojiler
 - HTML5
@@ -79,80 +107,11 @@ Kodlanan başlıca bölümler:
 - Miro
 - GitHub
 
----
-
-# 📷 Çalışmalardan Görseller
-
-## 🧩 Use Case Diyagramı
-![Use Case](use case diyagram.png)
-
----
-
-## 📊 Jira Backlog & Sprint
-
-![Jira](jira.png)
-
-![Jira Sprint](jira1.png)
-
-![Jira Sprint 2](jira2.png)
-
----
-
-## 🏗 Sistem Mimarisi
-![Sistem Mimarisi](sistem mimarisi.png)
-
----
-
-## 📅 Gantt Chart
-
-<img width="1600" height="550" alt="gant" src="https://github.com/user-attachments/assets/8b9802cd-d102-43be-9d4d-dbd6864c10ad" />
-
-<img width="1600" height="604" alt="gant2" src="https://github.com/user-attachments/assets/9ae78cca-6652-4dd3-8dd2-07212d79697c" />
 
 
 ---
 
-# 🎨 Wireframe Tasarımları
 
-## Giriş Ekranı
-![Wireframe](wire.png)
-
----
-
-## Sporcu Paneli
-![Wireframe](wire1.png)
-
----
-
-## Admin Video Yönetimi
-![Wireframe](wire2.png)
-
----
-
-## Antrenör Hata Giriş Ekranı
-![Wireframe](wire3.png)
-
----
-
-## Frekans Analizi
-![Wireframe](wire4.png)
-
----
-
-## Sporcu Listesi
-![Wireframe](wire5.png)
-
----
-
-## Takım Analiz Ekranı
-![Wireframe](wire6.png)
-
----
-
-## Maç Hata Giriş Ekranı
-![Wireframe](wire7.png)
-
----
 
 # 👨‍💻 Geliştirici
 ## Sefer Ege Kaya
