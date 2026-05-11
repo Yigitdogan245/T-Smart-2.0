@@ -62,6 +62,7 @@ Aşağıdaki ekranlar için wireframe tasarımları oluşturuldu:
 
 ## 4. Frontend Geliştirme
 HTML, CSS ve JavaScript kullanılarak sistemin temel ekranları kodlandı.
+Backend tarafında ise PHP kullanılarak veritabanı bağlantıları ve dinamik işlemler geliştirildi.
 
 Kodlanan başlıca bölümler:
 - Admin Paneli
