@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>T-Smart 2.0 - Giriş</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+<div class="page active" id="pg-login">
+<div class="lp"><div class="lc">
+
+  <div class="ll"><h1>T-Smart <span>2.0</span></h1><p>Taekwondo Yönetim Sistemi</p></div>
+  <div class="rt" id="role-tabs">
+    <div class="a" data-role="antrenor" onclick="setRole(this,'antrenor')">Antrenör</div>
+    <div data-role="sporcu" onclick="setRole(this,'sporcu')">Sporcu</div>
+    <div data-role="admin" onclick="setRole(this,'admin')">⚙️ Admin</div>
+  </div>
+  
+  <div class="fg"><label>Kullanıcı Adı</label><input type="text" id="login-user" placeholder="Kullanıcı adınızı girin" autocomplete="username" required/></div>
+  <div class="fg"><label>Şifre</label><input type="password" id="login-pass" placeholder="Şifrenizi girin" autocomplete="current-password" required/></div>
+  <button class="bl" onclick="doLogin()">Giriş Yap</button>
+  <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:12px;">T-Smart 2.0 &copy; 2026</p>
+</div></div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

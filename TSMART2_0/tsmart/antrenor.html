@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width,initial-scale=1.0" name="viewport" />
+    <title>T-Smart 2.0 - Antrenör</title>
+    <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="toast" id="toast"></div>
+    <div class="page active" id="pg-a-hata">
+        <div class="al">
+            <div class="sb" id="sb-antrenor-hata">
+                <div class="sb-l">
+                    <h2>T-Smart <span>2.0</span></h2>
+                    <p>Taekwondo Yönetim Sistemi</p>
+                </div>
+                <div class="sb-u">
+                    <div class="uav">AE</div>
+                    <div class="ui">
+                        <p>Ahmet Antrenör</p><span>Antrenör</span>
+                    </div>
+                </div>
+                <nav class="sb-n">
+                    <div class="ns">Genel</div>
+                    <div class="ni a" onclick="g('pg-a-hata')">Hata Girişi</div>
+                    <div class="ni" onclick="g('pg-a-maç')">Maç Kayıtları</div>
+                    <div class="ni" onclick="g('pg-a-liste')">Sporcu Listesi</div>
+                    <div class="ns">Raporlar</div>
+                    <div class="ni" onclick="g('pg-a-analiz')">Frekans Analizi</div>
+                    <div class="ni" onclick="g('pg-a-gelisim')">Gelişim Grafikleri</div>
+                    <div class="ns">Kaynaklar</div>
+                    <div class="ni" onclick="g('pg-a-video')">🎬 Video Yönetimi</div>
+                    <div class="ns">Hesap</div>
+                    <div class="ni" onclick="g('pg-a-hesap')">⚙️ Hesap Ayarları</div>
+                </nav>
+                <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+            </div>
+            <div class="mc">
+                <div class="mh">
+                    <h3>Maç Hata Girişi</h3>
+                    <p>Sporcunun maç performansını ve hatalarını kaydedin</p>
+                </div>
+                <div class="mb">
+                    <div class="sg s4">
+                        <div class="sc">
+                            <div class="sl">Toplam Sporcu</div>
+                            <div class="sv">24</div>
+                        </div>
+                        <div class="sc bl">
+                            <div class="sl">Bu Ay Maç</div>
+                            <div class="sv">8</div>
+                        </div>
+                        <div class="sc gr">
+                            <div class="sl">Galip Maç</div>
+                            <div class="sv">6</div>
+                        </div>
+                        <div class="sc or">
+                            <div class="sl">En Sık Hata</div>
+                            <div class="sv" style="font-size:14px">Denge</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="ct">Maç Bilgileri</div>
+                        <div class="fg2 g2">
+                            <div class="f"><label>Sporcu</label><select id="hata-sporcu" onchange="onSporcuChange()">
+                                    <option value="ege">Ege Kaya (Sarı Kuşak)</option>
+                                    <option value="yigit">Yiğit Doğan (Sarı-Yeşil)</option>
+                                    <option value="ahmet">Ahmet Eren Yakut (Sarı)</option>
+                                </select></div>
+                            <div class="f"><label>Maç Tarihi</label><input id="hata-tarih" type="date"
+                                    value="2026-05-07" /></div>
+                        </div>
+                        <div class="fg2 g2">
+                            <div class="f"><label>Organizasyon Adı</label><input id="hata-org" type="text"
+                                    value="İzmir İl Şampiyonası 2026" /></div>
+                            <div class="f"><label>Rakip Kulüp</label><input id="hata-rkulup" type="text"
+                                    value="Bornova Taekwondo Kulübü" /></div>
+                        </div>
+                        <div class="fg2 g2">
+                            <div class="f"><label>Rakip Adı</label><input id="hata-rakip" type="text"
+                                    value="Kemal Yıldız" /></div>
+                            <div class="f"><label>Sonuç</label><select id="hata-sonuc">
+                                    <option>Galibiyet</option>
+                                    <option>Mağlubiyet</option>
+                                    <option>Beraberlik</option>
+                                </select></div>
+                        </div>
+                        <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:7px;">Maç
+                            Skoru</label>
+                        <div class="skr">
+                            <div class="f"><label>Sporcu Puanı</label><input id="hata-spuan" min="0" type="number"
+                                    value="12" /></div>
+                            <div class="svs">—</div>
+                            <div class="f"><label>Rakip Puanı</label><input id="hata-rpuan" min="0" type="number"
+                                    value="8" /></div>
+                        </div>
+                        <div class="hogu-wrap">
+                            <div class="hg ch sel" id="hg-ch" onclick="selH('ch')">
+                                <div class="hi" style="background:#2563eb;"></div><span>Mavi — Chung</span>
+                            </div>
+                            <div class="hg ho" id="hg-ho" onclick="selH('ho')">
+                                <div class="hi" style="background:#e53935;"></div><span>Kırmızı — Hong</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="ct">Tespit Edilen Hatalar <span
+                                style="font-size:11px;color:var(--muted);font-weight:400">(birden fazla
+                                seçilebilir)</span></div>
+                        <div class="hgr" id="hata-secim">
+                            <div class="hb sel" onclick="togH(this)">Denge Sorunu</div>
+                            <div class="hb sel" onclick="togH(this)">Gard Açığı</div>
+                            <div class="hb" onclick="togH(this)">Ayak Pozisyonu</div>
+                            <div class="hb" onclick="togH(this)">Tepki Süresi</div>
+                            <div class="hb" onclick="togH(this)">Hamle Zamanlaması</div>
+                            <div class="hb" onclick="togH(this)">Nefes Kontrolü</div>
+                            <div class="hb" onclick="togH(this)">Enerji Yönetimi</div>
+                            <div class="hb" onclick="togH(this)">Teknik Hata</div>
+                            <div class="hb" onclick="togH(this)">Diğer...</div>
+                        </div>
+                        <div class="br">
+                            <button class="btn bp" onclick="saveMaç()">Kaydet</button>
+                            <button class="btn bo" onclick="clearHataForm()">Temizle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="pg-a-maç">
+        <div class="al">
+            <div class="sb">
+                <div class="sb-l">
+                    <h2>T-Smart <span>2.0</span></h2>
+                    <p>Taekwondo Yönetim Sistemi</p>
+                </div>
+                <div class="sb-u">
+                    <div class="uav">AE</div>
+                    <div class="ui">
+                        <p>Ahmet Antrenör</p><span>Antrenör</span>
+                    </div>
+                </div>
+                <nav class="sb-n">
+                    <div class="ns">Genel</div>
+                    <div class="ni" onclick="g('pg-a-hata')">Hata Girişi</div>
+                    <div class="ni a" onclick="g('pg-a-maç')">Maç Kayıtları</div>
+                    <div class="ni" onclick="g('pg-a-liste')">Sporcu Listesi</div>
+                    <div class="ns">Raporlar</div>
+                    <div class="ni" onclick="g('pg-a-analiz')">Frekans Analizi</div>
+                    <div class="ni" onclick="g('pg-a-gelisim')">Gelişim Grafikleri</div>
+                    <div class="ns">Kaynaklar</div>
+                    <div class="ni" onclick="g('pg-a-video')">🎬 Video Yönetimi</div>
+                    <div class="ns">Hesap</div>
+                    <div class="ni" onclick="g('pg-a-hesap')">⚙️ Hesap Ayarları</div>
+                </nav>
+                <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+            </div>
+            <div class="mc">
+                <div class="mh">
+                    <h3>Maç Kayıtları</h3>
+                    <p>Tüm maç geçmişini görüntüleyin ve filtreleyin</p>
+                </div>
+                <div class="mb">
+                    <div class="sg s4" id="maç-stats">
+                        <div class="sc">
+                            <div class="sl">Toplam Maç</div>
+                            <div class="sv" id="maç-total">96</div>
+                        </div>
+                        <div class="sc gr">
+                            <div class="sl">Galibiyet</div>
+                            <div class="sv" id="maç-win">61</div>
+                        </div>
+                        <div class="sc or">
+                            <div class="sl">Mağlubiyet</div>
+                            <div class="sv" id="maç-lose">35</div>
+                        </div>
+                        <div class="sc bl">
+                            <div class="sl">Galibiyet Oranı</div>
+                            <div class="sv" id="maç-rate">%64</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="ct">Tüm Maç Kayıtları</div>
+                        <div class="fp" style="margin-bottom:12px;">
+                            <label>Filtrele:</label>
+                            <select id="fil-sporcu" onchange="filterMaç()">
+                                <option value="">Tüm sporcular</option>
+                                <option value="Ege Kaya">Ege Kaya</option>
+                                <option value="Yiğit Doğan">Yiğit Doğan</option>
+                                <option value="Ahmet Eren Yakut">Ahmet Eren Yakut</option>
+                                <option value="Selin Öztürk">Selin Öztürk</option>
+                                <option value="Burak Koç">Burak Koç</option>
+                            </select>
+                            <select id="fil-sonuc" onchange="filterMaç()">
+                                <option value="">Tüm sonuçlar</option>
+                                <option value="Galibiyet">Galibiyet</option>
+                                <option value="Mağlubiyet">Mağlubiyet</option>
+                            </select>
+                            <select id="fil-tarih" onchange="filterMaç()">
+                                <option value="">Tüm tarihler</option>
+                                <option value="buay">Bu ay</option>
+                                <option value="buyil">Bu yıl</option>
+                            </select>
+                        </div>
+                        <div class="tw">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Sporcu</th>
+                                        <th>Tarih</th>
+                                        <th>Organizasyon</th>
+                                        <th>Rakip</th>
+                                        <th>Skor</th>
+                                        <th>Sonuç</th>
+                                        <th>Hatalar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="maç-tbody"></tbody>
+                            </table>
+                        </div>
+                        <div id="maç-count" style="margin-top:9px;font-size:12px;color:var(--muted);text-align:right;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="pg-a-liste">
+        <div class="al">
+            <div class="sb">
+                <div class="sb-l">
+                    <h2>T-Smart <span>2.0</span></h2>
+                    <p>Taekwondo Yönetim Sistemi</p>
+                </div>
+                <div class="sb-u">
+                    <div class="uav">AE</div>
+                    <div class="ui">
+                        <p>Ahmet Antrenör</p><span>Antrenör</span>
+                    </div>
+                </div>
+                <nav class="sb-n">
+                    <div class="ns">Genel</div>
+                    <div class="ni" onclick="g('pg-a-hata')">Hata Girişi</div>
+                    <div class="ni" onclick="g('pg-a-maç')">Maç Kayıtları</div>
+                    <div class="ni a" onclick="g('pg-a-liste')">Sporcu Listesi</div>
+                    <div class="ns">Raporlar</div>
+                    <div class="ni" onclick="g('pg-a-analiz')">Frekans Analizi</div>
+                    <div class="ni" onclick="g('pg-a-gelisim')">Gelişim Grafikleri</div>
+                    <div class="ns">Kaynaklar</div>
+                    <div class="ni" onclick="g('pg-a-video')">🎬 Video Yönetimi</div>
+                    <div class="ns">Hesap</div>
+                    <div class="ni" onclick="g('pg-a-hesap')">⚙️ Hesap Ayarları</div>
+                </nav>
+                <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+            </div>
+            <div class="mc">
+                <div class="mh">
+                    <h3>Sporcu Listesi</h3>
+                    <p>Tüm sporcuları görüntüleyin ve yönetin</p>
+                </div>
+                <div class="mb">
+                    <div class="sg s4">
+                        <div class="sc">
+                            <div class="sl">Toplam Sporcu</div>
+                            <div class="sv">6</div>
+                        </div>
+                        <div class="sc bl">
+                            <div class="sl">Beyaz Kuşak</div>
+                            <div class="sv">1</div>
+                        </div>
+                        <div class="sc gr">
+                            <div class="sl">Sarı Kuşak</div>
+                            <div class="sv">3</div>
+                        </div>
+                        <div class="sc or">
+                            <div class="sl">Sarı-Yeşil+</div>
+                            <div class="sv">2</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="ct">Sporcu Listesi</div>
+                        <div class="sb2">
+                            <input class="si" id="sporcu-ara" oninput="filterSporcuList()"
+                                placeholder="Sporcu adı ile ara..." type="text" />
+                            <button class="btn bs2" onclick="prepareNewSporcuProfile(); g('pg-a-profil')">Yeni
+                                Sporcu</button>
+                        </div>
+                        <div class="chips" id="sporcu-chips">
+                            <span class="chip a" onclick="filterSporcuByBelt(this,'')">Tümü (6)</span>
+                            <span class="chip" onclick="filterSporcuByBelt(this,'Beyaz')">Beyaz (1)</span>
+                            <span class="chip" onclick="filterSporcuByBelt(this,'Sarı')">Sarı (3)</span>
+                            <span class="chip" onclick="filterSporcuByBelt(this,'Sarı-Yeşil')">Sarı-Yeşil (1)</span>
+                            <span class="chip" onclick="filterSporcuByBelt(this,'Yeşil')">Yeşil (1)</span>
+                            <span class="chip" onclick="filterSporcuByBelt(this,'Siyah')">Siyah (0)</span>
+                        </div>
+                        <div class="tw">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Sporcu</th>
+                                        <th>Kulüp</th>
+                                        <th>Kuşak</th>
+                                        <th>Maç</th>
+                                        <th>Galibiyet</th>
+                                        <th>En Sık Hata</th>
+                                        <th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sporcu-tbody"></tbody>
+                            </table>
+                        </div>
+                        <div id="sporcu-count"
+                            style="margin-top:9px;font-size:12px;color:var(--muted);text-align:right;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="pg-a-profil">
+        <div class="al">
+            <div class="sb">
+                <div class="sb-l">
+                    <h2>T-Smart <span>2.0</span></h2>
+                    <p>Taekwondo Yönetim Sistemi</p>
+                </div>
+                <div class="sb-u">
+                    <div class="uav">AE</div>
+                    <div class="ui">
+                        <p>Ahmet Antrenör</p><span>Antrenör</span>
+                    </div>
+                </div>
+                <nav class="sb-n">
+                    <div class="ns">Genel</div>
+                    <div class="ni" onclick="g('pg-a-hata')">Hata Girişi</div>
+                    <div class="ni" onclick="g('pg-a-maç')">Maç Kayıtları</div>
+                    <div class="ni a" onclick="g('pg-a-liste')">Sporcu Listesi</div>
+                    <div class="ns">Raporlar</div>
+                    <div class="ni" onclick="g('pg-a-analiz')">Frekans Analizi</div>
+                    <div class="ni" onclick="g('pg-a-gelisim')">Gelişim Grafikleri</div>
+                    <div class="ns">Kaynaklar</div>
+                    <div class="ni" onclick="g('pg-a-video')">🎬 Video Yönetimi</div>
+                    <div class="ns">Hesap</div>
+                    <div class="ni" onclick="g('pg-a-hesap')">⚙️ Hesap Ayarları</div>
+                </nav>
+                <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+            </div>
+            <div class="mc">
+                <div class="mh">
+                    <h3>Sporcu Profil / Kayıt</h3>
+                    <p>Bilgiler veritabanından alınır, yeni kayıt da veritabanına eklenir</p>
+                </div>
+                <div class="mb">
+                    <div class="tc">
+                        <div>
+                            <div class="card">
+                                <div class="ct">Kişisel Bilgiler</div>
+                                <input id="profil-sporcu-id" type="hidden" value="" />
+                                <input id="profil-kullanici-id" type="hidden" value="" />
+                                <div class="fg2 g2">
+                                    <div class="f"><label>Ad</label><input id="profil-ad" placeholder="Ad"
+                                            type="text" /></div>
+                                    <div class="f"><label>Soyad</label><input id="profil-soyad" placeholder="Soyad"
+                                            type="text" /></div>
+                                </div>
+                                <div class="fg2 g2">
+                                    <div class="f"><label>Kullanıcı Adı</label><input id="profil-kullanici"
+                                            placeholder="kullanici_adi" type="text" /></div>
+                                    <div class="f"><label>Şifre</label><input id="profil-sifre"
+                                            placeholder="Yeni kayıt için şifre" type="password" /></div>
+                                </div>
+                                <div class="fg2 g1">
+                                    <div class="f"><label>Kulüp Adı</label><input id="profil-kulup"
+                                            placeholder="Kulüp adı" type="text" /></div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="ct">Spor Bilgileri</div>
+                                <div class="fg2 g2">
+                                    <div class="f"><label>Kuşak</label><select id="profil-kusak"></select></div>
+                                    <div class="f"><label>Antrenör</label><select id="profil-antrenor"></select></div>
+                                </div>
+                                <div class="br">
+                                    <button class="btn bp" onclick="saveSporcuProfile()">Kaydet</button>
+                                    <button class="btn bo" onclick="g('pg-a-liste')">Listeye Dön</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card">
+                                <div class="ct">Performans Özeti</div>
+                                <div class="sg s3" style="margin-bottom:12px;">
+                                    <div class="sc gr">
+                                        <div class="sl">Toplam Maç</div>
+                                        <div class="sv" id="profil-toplam-mac">0</div>
+                                    </div>
+                                    <div class="sc bl">
+                                        <div class="sl">Galibiyet</div>
+                                        <div class="sv" id="profil-galibiyet">0</div>
+                                    </div>
+                                    <div class="sc or">
+                                        <div class="sl">Mağlubiyet</div>
+                                        <div class="sv" id="profil-maglubiyet">0</div>
+                                    </div>
+                                </div>
+                                <div style="font-size:12px;font-weight:600;color:#444;margin-bottom:8px;">Son Maçlar
+                                </div>
+                                <div class="tw">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Tarih</th>
+                                                <th>Skor</th>
+                                                <th>Sonuç</th>
+                                                <th>Hatalar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="profil-son-maclar">
+                                            <tr>
+                                                <td colspan="4">Sporcu seçilmedi.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="ct">Hata Dağılımı</div>
+                                <div id="profil-hata-dagilimi">
+                                    <p style="font-size:13px;color:var(--muted)">Sporcu seçilince DB’den yüklenecek.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="pg-a-analiz">
+        <div class="al">
+            <div class="sb">
+                <div class="sb-l">
+                    <h2>T-Smart <span>2.0</span></h2>
+                    <p>Taekwondo Yönetim Sistemi</p>
+                </div>
+                <div class="sb-u">
+                    <div class="uav">AE</div>
+                    <div class="ui">
+                        <p>Ahmet Antrenör</p><span>Antrenör</span>
+                    </div>
+                </div>
+                <nav class="sb-n">
+                    <div class="ns">Genel</div>
+                    <div class="ni" onclick="g('pg-a-hata')">Hata Girişi</div>
+                    <div class="ni" onclick="g('pg-a-maç')">Maç Kayıtları</div>
+                    <div class="ni" onclick="g('pg-a-liste')">Sporcu Listesi</div>
+                    <div class="ns">Raporlar</div>
+                    <div class="ni a" onclick="g('pg-a-analiz')">Frekans Analizi</div>
+                    <div class="ni" onclick="g('pg-a-gelisim')">Gelişim Grafikleri</div>
+                    <div class="ns">Kaynaklar</div>
+                    <div class="ni" onclick="g('pg-a-video')">🎬 Video Yönetimi</div>
+                    <div class="ns">Hesap</div>
+                    <div class="ni" onclick="g('pg-a-hesap')">⚙️ Hesap Ayarları</div>
+                </nav>
+                <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+            </div>
+            <div class="mc">
+                <div class="mh">
+                    <h3>Frekans Analizi Raporu</h3>
+                    <p>Takım geneli hata dağılımını inceleyin</p>
+                </div>
+                <div class="mb">
+                    <div class="fp">
+                        <label>Filtrele:</label>
+                        <select id="analiz-kusak" onchange="filterAnaliz()">
+                            <option value="">Tüm kuşaklar</option>
+                            <option value="Beyaz">Beyaz</option>
+                            <option value="Sarı">Sarı</option>
+                            <option value="Sarı-Yeşil">Sarı-Yeşil</option>
+                            <option value="Yeşil">Yeşil</option>
+                            <option value="Yeşil-Mavi">Yeşil-Mavi</option>
+                            <option value="Mavi-Kırmızı">Mavi-Kırmızı</option>
+                            <option value="Kırmızı">Kırmızı</option>
+                            <option value="Kırmızı-Siyah">Kırmızı-Siyah</option>
+                            <option value="Siyah">Siyah</option>
+                        </select>
+                        <select id="analiz-kulup" onchange="filterAnaliz()">
+                            <option value="">Kulübe göre süz</option>
+                            <option value="İzmir TKD">İzmir TKD</option>
+                            <option value="Karşıyaka TKD">Karşıyaka TKD</option>
+                            <option value="Bornova TKD">Bornova TKD</option>
+                        </select>
+                        <select id="analiz-tarih" onchange="filterAnaliz()">
+                            <option value="">Son 3 ay</option>
+                            <option value="1ay">Son 1 ay</option>
+                            <option value="tum">Tüm zamanlar</option>
+                        </select>
+                    </div>
+                    <div class="sg s4" id="analiz-stats">
+                        <div class="sc">
+                            <div class="sl">Analiz Edilen Maç</div>
+                            <div class="sv" id="analiz-maç">96</div>
+                        </div>
+                        <div class="sc bl">
+                            <div class="sl">Toplam Hata</div>
+                            <div class="sv" id="analiz-hata">214</div>
+                        </div>
+                        <div class="sc or">
+                            <div class="sl">En Kritik Hata</div>
+                            <div class="sv" id="analiz-kritik" style="font-size:14px">Denge</div>
+                        </div>
+                        <div class="sc gr">
+                            <div class="sl">Maç Başına Ort.</div>
+                            <div class="sv" id="analiz-ort">2.8</div>
+                        </div>
+                    </div>
+                    <div class="tc">
+                        <div class="card">
+                            <div class="ct">Hata Türü Dağılımı</div>
+                            <div id="analiz-bars">
+                                <div class="hbr">
+                                    <div class="hbl">Denge Sorunu</div>
+                                    <div class="hbg">
+                                        <div class="hbf" style="width:85%;background:#e94560;">
+                                            <div class="hbv">68</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hbr">
+                                    <div class="hbl">Gard Açığı</div>
+                                    <div class="hbg">
+                                        <div class="hbf" style="width:65%;background:#0f3460;">
+                                            <div class="hbv">52</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hbr">
+                                    <div class="hbl">Ayak Pozisyonu</div>
+                                    <div class="hbg">
+                                        <div class="hbf" style="width:48%;background:#fd7e14;">
+                                            <div class="hbv">38</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hbr">
+                                    <div class="hbl">Tepki Süresi</div>
+                                    <div class="hbg">
+                                        <div class="hbf" style="width:32%;background:#198754;">
+                                            <div class="hbv">26</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hbr">
+                                    <div class="hbl">Hamle Zamanlaması</div>
+                                    <div class="hbg">
+                                        <div class="hbf" style="width:22%;background:#6f42c1;">
+                                            <div class="hbv">18</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hbr">
+                                    <div class="hbl">Nefes Kontrolü</div>
+                                    <div class="hbg">
+                                        <div class="hbf" style="width:15%;background:#20c997;">
+                                            <div class="hbv">12</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="ct">Kuşak Bazlı Hata Ortalaması</div>
+                            <div class="bc" id="analiz-chart">
+                                <div class="bg2">
+                                    <div class="bv2">3.2</div>
+                                    <div class="bf" style="height:40%;background:#e94560;"></div>
+                                    <div class="bl2">Beyaz</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2">2.8</div>
+                                    <div class="bf" style="height:55%;background:#fd7e14;"></div>
+                                    <div class="bl2">Sarı</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2">2.1</div>
+                                    <div class="bf" style="height:70%;background:#fdd835;"></div>
+                                    <div class="bl2">Sarı-Yeşil</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2">1.5</div>
+                                    <div class="bf" style="height:85%;background:#198754;"></div>
+                                    <div class="bl2">Yeşil</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2">0.9</div>
+                                    <div class="bf" style="height:95%;background:#263238;"></div>
+                                    <div class="bl2">Siyah</div>
+                                </div>
+                            </div>
+                            <p style="font-size:11px;color:var(--muted);margin-top:7px;">* Maç başına ortalama hata
+                                sayısı.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="ct">En Çok Hata Yapan Sporcular (Top 5)</div>
+                        <div class="tw">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Sporcu</th>
+                                        <th>Kulüp</th>
+                                        <th>Kuşak</th>
+                                        <th>Toplam Hata</th>
+                                        <th>En Sık Hata</th>
+                                        <th>Ort.</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="analiz-top5">
+                                    <tr>
+                                        <td><b>1</b></td>
+                                        <td>Burak Koç</td>
+                                        <td>Erkek</td>
+                                        <td>İzmir TKD</td>
+                                        <td><span class="badge bwh">Beyaz</span></td>
+                                        <td><b>24</b></td>
+                                        <td>Denge</td>
+                                        <td>3.4</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>2</b></td>
+                                        <td>Selin Öztürk</td>
+                                        <td>Kadın</td>
+                                        <td>İzmir TKD</td>
+                                        <td><span class="badge byy">Sarı</span></td>
+                                        <td><b>21</b></td>
+                                        <td>Gard</td>
+                                        <td>3.1</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>3</b></td>
+                                        <td>Ege Kaya</td>
+                                        <td>Erkek</td>
+                                        <td>İzmir TKD</td>
+                                        <td><span class="badge byy">Sarı</span></td>
+                                        <td><b>19</b></td>
+                                        <td>Denge</td>
+                                        <td>2.9</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>4</b></td>
+                                        <td>Ahmet Eren Yakut</td>
+                                        <td>Erkek</td>
+                                        <td>Karşıyaka TKD</td>
+                                        <td><span class="badge byy">Sarı</span></td>
+                                        <td><b>17</b></td>
+                                        <td>Tepki</td>
+                                        <td>2.7</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>5</b></td>
+                                        <td>Yiğit Doğan</td>
+                                        <td>Erkek</td>
+                                        <td>İzmir TKD</td>
+                                        <td><span class="badge bsy">Sarı-Yeşil</span></td>
+                                        <td><b>14</b></td>
+                                        <td>Gard</td>
+                                        <td>2.1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="pg-a-gelisim">
+        <div class="al">
+            <div class="sb">
+                <div class="sb-l">
+                    <h2>T-Smart <span>2.0</span></h2>
+                    <p>Taekwondo Yönetim Sistemi</p>
+                </div>
+                <div class="sb-u">
+                    <div class="uav">AE</div>
+                    <div class="ui">
+                        <p>Ahmet Antrenör</p><span>Antrenör</span>
+                    </div>
+                </div>
+                <nav class="sb-n">
+                    <div class="ns">Genel</div>
+                    <div class="ni" onclick="g('pg-a-hata')">Hata Girişi</div>
+                    <div class="ni" onclick="g('pg-a-maç')">Maç Kayıtları</div>
+                    <div class="ni" onclick="g('pg-a-liste')">Sporcu Listesi</div>
+                    <div class="ns">Raporlar</div>
+                    <div class="ni" onclick="g('pg-a-analiz')">Frekans Analizi</div>
+                    <div class="ni a" onclick="g('pg-a-gelisim')">Gelişim Grafikleri</div>
+                    <div class="ns">Kaynaklar</div>
+                    <div class="ni" onclick="g('pg-a-video')">🎬 Video Yönetimi</div>
+                    <div class="ns">Hesap</div>
+                    <div class="ni" onclick="g('pg-a-hesap')">⚙️ Hesap Ayarları</div>
+                </nav>
+                <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+            </div>
+            <div class="mc">
+                <div class="mh">
+                    <h3>Gelişim Grafikleri</h3>
+                    <p>Sporcu bazlı zaman içindeki gelişimi takip edin</p>
+                </div>
+                <div class="mb">
+                    <div class="fp">
+                        <label>Sporcu:</label>
+                        <select id="gelisim-sporcu" onchange="updateGelisim()">
+                            <option value="ege">Ege Kaya</option>
+                            <option value="yigit">Yiğit Doğan</option>
+                            <option value="ahmet">Ahmet Eren Yakut</option>
+                        </select>
+                        <label>Dönem:</label>
+                        <select id="gelisim-donem" onchange="updateGelisim()">
+                            <option value="6maç">Son 6 maç</option>
+                            <option value="3ay">Son 3 ay</option>
+                            <option value="tum">Tüm zamanlar</option>
+                        </select>
+                    </div>
+                    <div class="ib" id="gelisim-info"><b>Ege Kaya</b> — Sarı Kuşak — İzmir TKD — 12 maç, 8 galibiyet
+                    </div>
+                    <div class="tc">
+                        <div class="card">
+                            <div class="ct">Maç Başına Hata Trendi</div>
+                            <div class="bc" id="gelisim-hata-chart" style="height:150px;">
+                                <div class="bg2">
+                                    <div class="bv2">4.2</div>
+                                    <div class="bf" style="height:95%;background:#e94560;opacity:.7;"></div>
+                                    <div class="bl2">Maç 1</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2">3.8</div>
+                                    <div class="bf" style="height:80%;background:#e94560;opacity:.8;"></div>
+                                    <div class="bl2">Maç 2</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2">3.5</div>
+                                    <div class="bf" style="height:70%;background:#fd7e14;"></div>
+                                    <div class="bl2">Maç 3</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2">2.9</div>
+                                    <div class="bf" style="height:56%;background:#fd7e14;"></div>
+                                    <div class="bl2">Maç 4</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2">2.4</div>
+                                    <div class="bf" style="height:42%;background:#fdd835;"></div>
+                                    <div class="bl2">Maç 5</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2">1.9</div>
+                                    <div class="bf" style="height:30%;background:#198754;"></div>
+                                    <div class="bl2">Maç 6</div>
+                                </div>
+                            </div>
+                            <p id="gelisim-hata-msg"
+                                style="font-size:11px;color:var(--suc);font-weight:600;margin-top:7px;">Hata sayısı
+                                sürekli azalıyor!</p>
+                        </div>
+                        <div class="card">
+                            <div class="ct">Galibiyet / Mağlubiyet Trendi</div>
+                            <div class="bc" id="gelisim-gm-chart" style="height:150px;">
+                                <div class="bg2">
+                                    <div class="bv2"></div>
+                                    <div class="bf" style="height:30%;background:#dc3545;"></div>
+                                    <div class="bl2">Maç 1</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2"></div>
+                                    <div class="bf" style="height:30%;background:#dc3545;"></div>
+                                    <div class="bl2">Maç 2</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2"></div>
+                                    <div class="bf" style="height:80%;background:#198754;"></div>
+                                    <div class="bl2">Maç 3</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2"></div>
+                                    <div class="bf" style="height:30%;background:#dc3545;"></div>
+                                    <div class="bl2">Maç 4</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2"></div>
+                                    <div class="bf" style="height:80%;background:#198754;"></div>
+                                    <div class="bl2">Maç 5</div>
+                                </div>
+                                <div class="bg2">
+                                    <div class="bv2"></div>
+                                    <div class="bf" style="height:80%;background:#198754;"></div>
+                                    <div class="bl2">Maç 6</div>
+                                </div>
+                            </div>
+                            <p id="gelisim-gm-msg" style="font-size:11px;color:var(--muted);margin-top:7px;">Son 3 maçta
+                                galibiyet serisi devam ediyor.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="ct">Hata Türlerine Göre Değişim</div>
+                        <div class="tw">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Hata Türü</th>
+                                        <th>Maç 1</th>
+                                        <th>Maç 2</th>
+                                        <th>Maç 3</th>
+                                        <th>Maç 4</th>
+                                        <th>Maç 5</th>
+                                        <th>Maç 6</th>
+                                        <th>Trend</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="gelisim-tablo">
+                                    <tr>
+                                        <td><b>Denge Sorunu</b></td>
+                                        <td>3</td>
+                                        <td>3</td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td><span style="color:var(--suc);font-weight:700;">İyileşiyor</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Gard Açığı</b></td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td><span style="color:var(--suc);font-weight:700;">İyileşiyor</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Tepki Süresi</b></td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td><span style="color:var(--wrn);font-weight:700;">Sabit</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Ayak Pozisyonu</b></td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td><span style="color:var(--suc);font-weight:700;">İyileşiyor</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="script.js?v=dom-parser-nesting-real-fix"></script>
+    </div>
+    <div class="page" id="pg-a-video">
+        <div class="al">
+            <div class="sb">
+                <div class="sb-l">
+                    <h2>T-Smart <span>2.0</span></h2>
+                    <p>Taekwondo Yönetim Sistemi</p>
+                </div>
+                <div class="sb-u">
+                    <div class="uav">AE</div>
+                    <div class="ui">
+                        <p>Ahmet Antrenör</p><span>Antrenör</span>
+                    </div>
+                </div>
+                <nav class="sb-n">
+                    <div class="ns">Genel</div>
+                    <div class="ni" onclick="g('pg-a-hata')">Hata Girişi</div>
+                    <div class="ni" onclick="g('pg-a-maç')">Maç Kayıtları</div>
+                    <div class="ni" onclick="g('pg-a-liste')">Sporcu Listesi</div>
+                    <div class="ns">Raporlar</div>
+                    <div class="ni" onclick="g('pg-a-analiz')">Frekans Analizi</div>
+                    <div class="ni" onclick="g('pg-a-gelisim')">Gelişim Grafikleri</div>
+                    <div class="ns">Kaynaklar</div>
+                    <div class="ni a" onclick="g('pg-a-video')">🎬 Video Yönetimi</div>
+                    <div class="ns">Hesap</div>
+                    <div class="ni" onclick="g('pg-a-hesap')">⚙️ Hesap Ayarları</div>
+                </nav>
+                <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+            </div>
+            <div class="mc">
+                <div class="mh">
+                    <h3>Video Yönetimi</h3>
+                    <p>Eğitim videolarını ekleyin, düzenleyin veya silin</p>
+                </div>
+                <div class="mb">
+                    <div class="card">
+                        <div class="ct">Yeni Video Ekle</div>
+                        <div class="fg2 g3">
+                            <div class="f"><label>Kuşak</label>
+                                <select id="antrenor-video-kusak"></select>
+                            </div>
+                            <div class="f"><label>Başlık</label>
+                                <input id="antrenor-video-baslik" placeholder="Video başlığını girin" type="text">
+                                </input>
+                            </div>
+                            <div class="f"><label>Video URL</label>
+                                <input id="antrenor-video-url" placeholder="https://youtube.com/watch?v=..."
+                                    type="text">
+                                </input>
+                            </div>
+                        </div>
+                        <div class="br">
+                            <button class="btn bp" onclick="antrenorVideoEkle()">Video Ekle</button>
+                            <button class="btn bo"
+                                onclick="document.getElementById('antrenor-video-baslik').value='';document.getElementById('antrenor-video-url').value='';">İptal</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="ct">Video Listesi</div>
+                        <div class="chips" id="antrenor-video-chips"></div>
+                        <div id="antrenor-video-list">
+                            <p style="color:var(--muted);font-size:13px;">Videolar yükleniyor...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="pg-a-hesap">
+        <div class="al">
+            <div class="sb">
+                <div class="sb-l">
+                    <h2>T-Smart <span>2.0</span></h2>
+                    <p>Taekwondo Yönetim Sistemi</p>
+                </div>
+                <div class="sb-u">
+                    <div class="uav">AE</div>
+                    <div class="ui">
+                        <p>Ahmet Antrenör</p><span>Antrenör</span>
+                    </div>
+                </div>
+                <nav class="sb-n">
+                    <div class="ns">Genel</div>
+                    <div class="ni" onclick="g('pg-a-hata')">Hata Girişi</div>
+                    <div class="ni" onclick="g('pg-a-maç')">Maç Kayıtları</div>
+                    <div class="ni" onclick="g('pg-a-liste')">Sporcu Listesi</div>
+                    <div class="ns">Raporlar</div>
+                    <div class="ni" onclick="g('pg-a-analiz')">Frekans Analizi</div>
+                    <div class="ni" onclick="g('pg-a-gelisim')">Gelişim Grafikleri</div>
+                    <div class="ns">Kaynaklar</div>
+                    <div class="ni" onclick="g('pg-a-video')">🎬 Video Yönetimi</div>
+                    <div class="ns">Hesap</div>
+                    <div class="ni a" onclick="g('pg-a-hesap')">⚙️ Hesap Ayarları</div>
+                </nav>
+                <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+            </div>
+            <div class="mc">
+                <div class="mh">
+                    <h3>Hesap Ayarları</h3>
+                    <p>Antrenör profil ve güvenlik ayarları</p>
+                </div>
+                <div class="mb">
+                    <div class="card">
+                        <div class="ct">Profil Bilgileri</div>
+                        <div class="fg2 g2">
+                            <div class="f"><label>Ad Soyad</label><input value="Ahmet Antrenör" /></div>
+                            <div class="f"><label>Kullanıcı Adı</label><input value="ahmet.antrenor" /></div>
+                        </div>
+                        <div class="fg2 g2">
+                            <div class="f"><label>Rol</label><input disabled="" value="Antrenör" /></div>
+                        </div>
+                        <div class="br"><button class="btn bp"
+                                onclick="t('Hesap bilgileri kaydedildi!')">Kaydet</button><button class="btn bo"
+                                onclick="doLogout()">Çıkış Yap</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

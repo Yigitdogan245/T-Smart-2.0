@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>T-Smart 2.0 - Sporcu</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+<div class="page active" id="pg-s-kariyer">
+<div class="al">
+  <div class="sb">
+    <div class="sb-l"><h2>T-Smart <span>2.0</span></h2><p>Taekwondo Yönetim Sistemi</p></div>
+    <div class="sb-u"><div class="uav" id="sporcu-uav"><span class="sb-initials">S</span></div><div class="ui"><p><span class="sb-ad-soyad">Sporcu</span></p><span>Sporcu</span></div></div>
+    <nav class="sb-n">
+      <div class="ns">Profilim</div>
+      <div class="ni a" onclick="g('pg-s-kariyer')">Kariyer Haritam</div>
+      <div class="ni" onclick="g('pg-s-maç')">Maç Geçmişim</div>
+      <div class="ni" onclick="g('pg-s-hata')">Hata Analizim</div>
+      <div class="ns">Kaynaklar</div>
+      <div class="ni" onclick="g('pg-s-video')">Eğitim Videoları</div>
+      <div class="ns">Hesap</div>
+      <div class="ni" onclick="return tsmartSporcuHesapAc()">⚙️ Hesap Ayarları</div>
+    </nav>
+    <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+  </div>
+  <div class="mc">
+    <div class="mh"><h3>Kariyer Haritam</h3><p>Kuşak ilerlemenizi ve performansınızı takip edin</p></div>
+    <div class="mb">
+      <div class="sg s4">
+        <div class="sc"><div class="sl">Mevcut Kuşak</div><div class="sv" id="k-kusak" style="font-size:14px">—</div></div>
+        <div class="sc bl"><div class="sl">Toplam Maç</div><div class="sv" id="k-toplam-mac">—</div></div>
+        <div class="sc gr"><div class="sl">Galibiyet</div><div class="sv" id="k-galibiyet">—</div></div>
+        <div class="sc or"><div class="sl">En Sık Hata</div><div class="sv" id="k-en-sik-hata" style="font-size:14px">—</div></div>
+      </div>
+      <div class="career-dashboard">
+        <div class="card career-roadmap-card">
+          <div class="ct">Kuşak İlerleme Yolu</div>
+          <div class="ctr" id="kusak-roadmap"><p style="color:var(--muted)">Yükleniyor...</p></div>
+          </div>
+        </div>
+
+        <div class="career-side">
+          <div class="card mini-card goal-card">
+            <div class="ct">Sıradaki Hedef</div>
+            <div class="goal-title" id="hedef-kusak">—</div>
+            <div class="goal-sub">Hedefe kalan ilerleme: <b id="hedef-pct">—</b></div>
+            <div class="pw big-progress"><div class="pb" id="hedef-bar" style="width:0%;background:#6b7280;"></div></div>
+            <div class="goal-list" id="hedef-liste"><span>—</span></div>
+          </div>
+
+          <div class="card mini-card">
+            <div class="ct">Performans Özeti</div>
+            <div class="kpi-grid">
+              <div><b id="perf-oran">—</b><span>Galibiyet oranı</span></div>
+              <div><b id="perf-hata">—</b><span>Maç başı hata</span></div>
+              <div><b id="perf-son-galibiyet">—</b><span>Son galibiyet</span></div>
+              <div><b id="perf-video">—</b><span>Önerilen video</span></div>
+            </div>
+          </div>
+
+          <div class="card mini-card">
+            <div class="ct">Son Maçlar</div>
+            <div class="match-list" id="son-maclar-kariyer"><p style="color:var(--muted);font-size:13px;">Yükleniyor...</p></div>
+          </div>
+          </div>
+
+          <div class="card mini-card coach-note">
+            <div class="ct">Antrenör Notu</div>
+            <p id="antrenor-notu">Maç ve hata verileriniz yükleniyor...</p>
+          </div>
+        </div>
+</div>
+  </div>
+</div>
+
+<div class="page" id="pg-s-maç">
+<div class="al">
+  <div class="sb">
+    <div class="sb-l"><h2>T-Smart <span>2.0</span></h2><p>Taekwondo Yönetim Sistemi</p></div>
+    <div class="sb-u"><div class="uav" id="sporcu-uav"><span class="sb-initials">S</span></div><div class="ui"><p><span class="sb-ad-soyad">Sporcu</span></p><span>Sporcu</span></div></div>
+    <nav class="sb-n">
+      <div class="ns">Profilim</div>
+      <div class="ni" onclick="g('pg-s-kariyer')">Kariyer Haritam</div>
+      <div class="ni a" onclick="g('pg-s-maç')">Maç Geçmişim</div>
+      <div class="ni" onclick="g('pg-s-hata')">Hata Analizim</div>
+      <div class="ns">Kaynaklar</div>
+      <div class="ni" onclick="g('pg-s-video')">Eğitim Videoları</div>
+      <div class="ns">Hesap</div>
+      <div class="ni" onclick="return tsmartSporcuHesapAc()">⚙️ Hesap Ayarları</div>
+    </nav>
+    <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+  </div>
+  <div class="mc">
+    <div class="mh"><h3>Maç Geçmişim</h3><p>Tüm maçlarınızı ve sonuçlarınızı görüntüleyin</p></div>
+    <div class="mb">
+      <div class="sg s4">
+        <div class="sc"><div class="sl">Toplam Maç</div><div class="sv">12</div></div>
+        <div class="sc gr"><div class="sl">Galibiyet</div><div class="sv">8</div></div>
+        <div class="sc or"><div class="sl">Mağlubiyet</div><div class="sv">4</div></div>
+        <div class="sc bl"><div class="sl">Galibiyet Oranı</div><div class="sv">%67</div></div>
+      </div>
+      <div class="card">
+        <div class="ct">Maç Geçmişi</div>
+        <div class="tw"><table>
+          <thead><tr><th>Tarih</th><th>Organizasyon</th><th>Rakip</th><th>Rakip Kulüp</th><th>Skor</th><th>Sonuç</th><th>Hatalar</th></tr></thead>
+          <tbody>
+            <tr><td>07 May 2025</td><td>İzmir İl Şamp.</td><td>Kemal Yıldız</td><td>Bornova TKD</td><td><b>12&mdash;8</b></td><td><span class="badge bss">Galibiyet</span></td><td><span class="tag">Denge</span><span class="tag">Gard</span></td></tr>
+            <tr><td>02 Mar 2025</td><td>Bölge Kupası</td><td>Ali Demir</td><td>Gaziemir TKD</td><td><b>7&mdash;9</b></td><td><span class="badge bdd">Mağlubiyet</span></td><td><span class="tag">Denge</span><span class="tag">Tepki</span></td></tr>
+            <tr><td>18 Şub 2025</td><td>Antrenman Maçı</td><td>Barış Kılıç</td><td>Buca TKD</td><td><b>11&mdash;6</b></td><td><span class="badge bss">Galibiyet</span></td><td><span class="tag">Ayak</span></td></tr>
+            <tr><td>05 Oca 2025</td><td>Kış Turnuvası</td><td>Murat Arslan</td><td>Konak TKD</td><td><b>9&mdash;11</b></td><td><span class="badge bdd">Mağlubiyet</span></td><td><span class="tag">Gard</span><span class="tag">Nefes</span></td></tr>
+            <tr><td>14 Ara 2024</td><td>İl Şampiyonası</td><td>Cem Yildiz</td><td>Balcova TKD</td><td><b>13&mdash;8</b></td><td><span class="badge bss">Galibiyet</span></td><td><span class="tag">Denge</span></td></tr>
+          </tbody>
+        </table></div>
+        <div style="margin-top:9px;font-size:12px;color:var(--muted);text-align:right;">5 / 12 maç gosteriliyor</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><div class="page" id="pg-s-hata">
+
+<div class="al">
+  <div class="sb">
+    <div class="sb-l"><h2>T-Smart <span>2.0</span></h2><p>Taekwondo Yönetim Sistemi</p></div>
+    <div class="sb-u"><div class="uav" id="sporcu-uav"><span class="sb-initials">S</span></div><div class="ui"><p><span class="sb-ad-soyad">Sporcu</span></p><span>Sporcu</span></div></div>
+    <nav class="sb-n">
+      <div class="ns">Profilim</div>
+      <div class="ni" onclick="g('pg-s-kariyer')">Kariyer Haritam</div>
+      <div class="ni" onclick="g('pg-s-maç')">Maç Geçmişim</div>
+      <div class="ni a" onclick="g('pg-s-hata')">Hata Analizim</div>
+      <div class="ns">Kaynaklar</div>
+      <div class="ni" onclick="g('pg-s-video')">Eğitim Videoları</div>
+      <div class="ns">Hesap</div>
+      <div class="ni" onclick="return tsmartSporcuHesapAc()">⚙️ Hesap Ayarları</div>
+    </nav>
+    <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+  </div>
+
+  <div class="mc">
+    <div class="mh"><h3>Hata Analizim</h3><p>Teknik eksikliklerinizi analiz edin ve geliştirin</p></div>
+    <div class="mb">
+      <div class="ib" id="s-hata-not" style="background:#fff9c4;border-color:#f9a825;color:#5a4000;display:none;"></div>
+      <div class="tc">
+        <div class="card">
+          <div class="ct">Hata Frekans Dağılımı</div>
+          <div id="s-hata-bars"><p style="font-size:13px;color:var(--muted)">DB’den hata verileri yükleniyor...</p></div>
+        </div>
+        <div class="card">
+          <div class="ct">Zaman İçindeki Hata Trendi</div>
+          <div class="bc" id="s-hata-trend"><p style="font-size:13px;color:var(--muted)">DB’den trend verisi yükleniyor...</p></div>
+          <p id="s-hata-trend-msg" style="font-size:11px;color:var(--muted);font-weight:600;margin-top:7px;"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div></div><div class="page" id="pg-s-video">
+<div class="al">
+  <div class="sb">
+    <div class="sb-l"><h2>T-Smart <span>2.0</span></h2><p>Taekwondo Yönetim Sistemi</p></div>
+    <div class="sb-u"><div class="uav" id="sporcu-uav"><span class="sb-initials">S</span></div><div class="ui"><p><span class="sb-ad-soyad">Sporcu</span></p><span>Sporcu</span></div></div>
+    <nav class="sb-n">
+      <div class="ns">Profilim</div>
+      <div class="ni" onclick="g('pg-s-kariyer')">Kariyer Haritam</div>
+      <div class="ni" onclick="g('pg-s-maç')">Maç Geçmişim</div>
+      <div class="ni" onclick="g('pg-s-hata')">Hata Analizim</div>
+      <div class="ns">Kaynaklar</div>
+      <div class="ni a" onclick="g('pg-s-video')">Eğitim Videoları</div>
+      <div class="ns">Hesap</div>
+      <div class="ni" onclick="return tsmartSporcuHesapAc()">⚙️ Hesap Ayarları</div>
+    </nav>
+    <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+  </div>
+
+  <div class="mc">
+    <div class="mh"><h3>Eğitim Videoları</h3><p>Kuşak seviyenize özel eğitim videolarını izleyin</p></div>
+    <div class="mb">
+      <div class="ib" id="video-info">🎓 Tüm kuşak seviyelerine ait <b>18 video</b> bulundu. Denge sorununuzu geliştirmek için "Denge Teknikleri" videosunu öneririz.</div>
+      <div class="chips" id="sporcu-video-chips">
+        <span class="chip a" onclick="filterSporcuVideos(this,'Tümü')">Tümü (18)</span>
+        <span class="chip" onclick="filterSporcuVideos(this,'Beyaz Kuşak')">Beyaz Kuşak (2)</span>
+        <span class="chip" onclick="filterSporcuVideos(this,'Sarı Kuşak')">Sarı Kuşak (4)</span>
+        <span class="chip" onclick="filterSporcuVideos(this,'Sarı-Yeşil Kuşak')">Sarı-Yeşil Kuşak (3)</span>
+        <span class="chip" onclick="filterSporcuVideos(this,'Yeşil Kuşak')">Yeşil Kuşak (3)</span>
+        <span class="chip" onclick="filterSporcuVideos(this,'Yeşil-Mavi Kuşak')">Yeşil-Mavi Kuşak (1)</span>
+        <span class="chip" onclick="filterSporcuVideos(this,'Mavi-Kırmızı Kuşak')">Mavi-Kırmızı Kuşak (1)</span>
+        <span class="chip" onclick="filterSporcuVideos(this,'Kırmızı Kuşak')">Kırmızı Kuşak (1)</span>
+        <span class="chip" onclick="filterSporcuVideos(this,'Kırmızı-Siyah Kuşak')">Kırmızı-Siyah Kuşak (1)</span>
+        <span class="chip" onclick="filterSporcuVideos(this,'Siyah Kuşak')">Siyah Kuşak (2)</span>
+      </div>
+      <div class="card" id="video-list">
+        <div class="vc" data-belt="Sarı Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Denge Teknikleri – Başlangıç Seviyesi</div><div class="vu">www.youtube.com/watch?v=dQw4w9WgXcQ &middot; <span class="badge byy">Sarı Kuşak</span> &middot; 12 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">İzle</button></div>
+        <div class="vc" data-belt="Sarı Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Gard Pozisyonları ve Savunma</div><div class="vu">www.youtube.com/watch?v=ysz5S6PUM-U &middot; <span class="badge byy">Sarı Kuşak</span> &middot; 18 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=ysz5S6PUM-U')">İzle</button></div>
+        <div class="vc" data-belt="Sarı Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Ayak Çalışması – Temel Hareketler</div><div class="vu">www.youtube.com/watch?v=jNQXAC9IVRw &middot; <span class="badge byy">Sarı Kuşak</span> &middot; 22 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=jNQXAC9IVRw')">İzle</button></div>
+        <div class="vc" data-belt="Sarı Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Tepki Süresi Geliştirme Egzersizleri</div><div class="vu">www.youtube.com/watch?v=ScMzIvxBSi4 &middot; <span class="badge byy">Sarı Kuşak</span> &middot; 9 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=ScMzIvxBSi4')">İzle</button></div>
+        <div class="vc" data-belt="Beyaz Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Temel Duruş ve Selamlama</div><div class="vu">www.youtube.com/watch?v=dQw4w9WgXcQ &middot; <span class="badge bwh">Beyaz Kuşak</span> &middot; 10 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">İzle</button></div>
+        <div class="vc" data-belt="Beyaz Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Başlangıç Tekmeleri</div><div class="vu">www.youtube.com/watch?v=ysz5S6PUM-U &middot; <span class="badge bwh">Beyaz Kuşak</span> &middot; 14 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=ysz5S6PUM-U')">İzle</button></div>
+        <div class="vc" data-belt="Sarı-Yeşil Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Hızlı Kontra Atak Çalışması</div><div class="vu">www.youtube.com/watch?v=jNQXAC9IVRw &middot; <span class="badge bsy">Sarı-Yeşil Kuşak</span> &middot; 16 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=jNQXAC9IVRw')">İzle</button></div>
+        <div class="vc" data-belt="Sarı-Yeşil Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Dönüş Tekmesi Tekniği</div><div class="vu">www.youtube.com/watch?v=ScMzIvxBSi4 &middot; <span class="badge bsy">Sarı-Yeşil Kuşak</span> &middot; 20 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=ScMzIvxBSi4')">İzle</button></div>
+        <div class="vc" data-belt="Sarı-Yeşil Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Maç İçi Pozisyon Alma</div><div class="vu">www.youtube.com/watch?v=dQw4w9WgXcQ &middot; <span class="badge bsy">Sarı-Yeşil Kuşak</span> &middot; 13 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">İzle</button></div>
+        <div class="vc" data-belt="Yeşil Kuşak"><div class="vt"></div><div class="vi"><div class="vn">İleri Seviye Ayak Çalışması</div><div class="vu">www.youtube.com/watch?v=ysz5S6PUM-U &middot; <span class="badge bgg">Yeşil Kuşak</span> &middot; 21 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=ysz5S6PUM-U')">İzle</button></div>
+        <div class="vc" data-belt="Yeşil Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Nefes ve Enerji Yönetimi</div><div class="vu">www.youtube.com/watch?v=jNQXAC9IVRw &middot; <span class="badge bgg">Yeşil Kuşak</span> &middot; 15 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=jNQXAC9IVRw')">İzle</button></div>
+        <div class="vc" data-belt="Yeşil Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Kombinasyon Antrenmanı</div><div class="vu">www.youtube.com/watch?v=ScMzIvxBSi4 &middot; <span class="badge bgg">Yeşil Kuşak</span> &middot; 19 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=ScMzIvxBSi4')">İzle</button></div>
+        <div class="vc" data-belt="Yeşil-Mavi Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Mavi Kuşağa Geçiş Teknikleri</div><div class="vu">www.youtube.com/watch?v=dQw4w9WgXcQ &middot; <span class="badge bgm">Yeşil-Mavi Kuşak</span> &middot; 18 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">İzle</button></div>
+        <div class="vc" data-belt="Mavi-Kırmızı Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Kırmızı Kuşağa Hazırlık</div><div class="vu">www.youtube.com/watch?v=ysz5S6PUM-U &middot; <span class="badge bmk">Mavi-Kırmızı Kuşak</span> &middot; 20 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=ysz5S6PUM-U')">İzle</button></div>
+        <div class="vc" data-belt="Kırmızı Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Müsabaka Tempo Kontrolü</div><div class="vu">www.youtube.com/watch?v=jNQXAC9IVRw &middot; <span class="badge bkr">Kırmızı Kuşak</span> &middot; 22 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=jNQXAC9IVRw')">İzle</button></div>
+        <div class="vc" data-belt="Kırmızı-Siyah Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Siyah Kuşak Öncesi Teknik Set</div><div class="vu">www.youtube.com/watch?v=ScMzIvxBSi4 &middot; <span class="badge bks">Kırmızı-Siyah Kuşak</span> &middot; 24 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=ScMzIvxBSi4')">İzle</button></div>
+        <div class="vc" data-belt="Siyah Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Profesyonel Maç Stratejileri</div><div class="vu">www.youtube.com/watch?v=dQw4w9WgXcQ &middot; <span class="badge bkk">Siyah Kuşak</span> &middot; 25 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">İzle</button></div>
+        <div class="vc" data-belt="Siyah Kuşak"><div class="vt"></div><div class="vi"><div class="vn">Rakip Analizi ve Taktik Kurma</div><div class="vu">www.youtube.com/watch?v=ysz5S6PUM-U &middot; <span class="badge bkk">Siyah Kuşak</span> &middot; 24 dk</div></div><button class="btn bp" style="padding:7px 13px;font-size:12px;" onclick="openVideo('https://www.youtube.com/watch?v=ysz5S6PUM-U')">İzle</button></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="page" id="pg-s-hesap">
+<div class="al">
+  <div class="sb"><div class="sb-l"><h2>T-Smart <span>2.0</span></h2><p>Taekwondo Yönetim Sistemi</p></div><div class="sb-u"><div class="uav" id="sporcu-uav"><span class="sb-initials">S</span></div><div class="ui"><p><span class="sb-ad-soyad">Sporcu</span></p><span>Sporcu</span></div></div><nav class="sb-n"><div class="ns">Profilim</div><div class="ni" onclick="g('pg-s-kariyer')">Kariyer Haritam</div><div class="ni" onclick="g('pg-s-maç')">Maç Geçmişim</div><div class="ni" onclick="g('pg-s-hata')">Hata Analizim</div><div class="ns">Kaynaklar</div><div class="ni" onclick="g('pg-s-video')">Eğitim Videoları</div><div class="ns">Hesap</div><div class="ni a" onclick="return tsmartSporcuHesapAc()">⚙️ Hesap Ayarları</div></nav><div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div></div>
+  <div class="mc"><div class="mh"><h3>Hesap Ayarları</h3><p>Profil ve güvenlik bilgilerinizi yönetin</p></div><div class="mb"><div class="card"><div class="ct">Profil Bilgileri</div><div class="fg2 g2"><div class="f"><label>Ad Soyad</label><input value="Ege Kaya"></div><div class="f"><label>Kullanıcı Adı</label><input value="ege.sporcu"></div></div><div class="fg2 g2"><div class="f"><label>Rol</label><input value="Sporcu" disabled></div></div><div class="br"><button class="btn bp" onclick="t('Profil bilgileri kaydedildi!')">Kaydet</button></div></div><div class="card"><div class="ct">Şifre Değiştir</div><div class="fg2 g3"><div class="f"><label>Mevcut Şifre</label><input type="password"></div><div class="f"><label>Yeni Şifre</label><input type="password"></div><div class="f"><label>Yeni Şifre Tekrar</label><input type="password"></div></div><div class="br"><button class="btn bp" onclick="t('Şifre güncellendi!')">Şifreyi Güncelle</button><button class="btn bo" onclick="doLogout()">Çıkış Yap</button></div></div></div></div>
+</div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

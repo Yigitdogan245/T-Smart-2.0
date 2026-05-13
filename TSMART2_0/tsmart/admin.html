@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>T-Smart 2.0 - Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div class="page active" id="pg-ad-video">
+<div class="al">
+  <div class="sb">
+    <div class="sb-l"><h2>T-Smart <span>2.0</span></h2><p>Taekwondo Yönetim Sistemi</p></div>
+    <div class="sb-u"><div class="uav" style="background:#dc3545;">AD</div><div class="ui"><p>Admin</p><span>Sistem Yöneticisi</span></div></div>
+    <nav class="sb-n">
+      <div class="ns">Yönetim</div>
+      <div class="ni a" onclick="g('pg-ad-video')">Video Yönetimi</div>
+      <div class="ni" onclick="g('pg-ad-kullanici')">Kullanıcılar</div>
+      <div class="ni" onclick="g('pg-ad-sporcu')">Sporcu Yönetimi</div>
+      <div class="ns">Sistem</div>
+      <div class="ni" onclick="g('pg-ad-kusak')">Kuşak Seviyeleri</div>
+      <div class="ns">Hesap</div>
+      <div class="ni" onclick="g('pg-ad-hesap')">⚙️ Hesap Ayarları</div>
+    </nav>
+    <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+  </div>
+  <div class="mc">
+    <div class="mh"><h3>Kuşak Bazlı Video Yönetimi</h3><p>Eğitim videolarını kuşak seviyelerine göre yönetin</p></div>
+    <div class="mb">
+      <div class="card">
+        <div class="ct">Yeni Video Ekle</div>
+        <div class="fg2 g2">
+          <div class="f"><label>Kuşak Seviyesi</label><select id="admin-video-kusak"></select></div>
+          <div class="f"><label>Video Başlığı</label><input type="text" id="admin-video-baslik" placeholder="Video başlığı"/></div>
+        </div>
+        <div class="f" style="margin-bottom:11px;"><label>Video URL (YouTube / Vimeo)</label><input type="text" id="admin-video-url" placeholder="https://youtube.com/..."/></div>
+        <div class="br"><button class="btn bp" onclick="adminVideoEkle()">Video Ekle</button><button class="btn bo">İptal</button></div>
+      </div>
+      <div class="card">
+        <div class="ct">Mevcut Videolar</div>
+        <div class="chips" style="margin-bottom:12px;" id="admin-video-chips">
+        </div>
+        <div id="admin-video-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="page" id="pg-ad-kullanici">
+<div class="al">
+  <div class="sb">
+    <div class="sb-l"><h2>T-Smart <span>2.0</span></h2><p>Taekwondo Yönetim Sistemi</p></div>
+    <div class="sb-u"><div class="uav" style="background:#dc3545;">AD</div><div class="ui"><p>Admin</p><span>Sistem Yöneticisi</span></div></div>
+    <nav class="sb-n">
+      <div class="ns">Yönetim</div>
+      <div class="ni" onclick="g('pg-ad-video')">Video Yönetimi</div>
+      <div class="ni a" onclick="g('pg-ad-kullanici')">Kullanıcılar</div>
+      <div class="ni" onclick="g('pg-ad-sporcu')">Sporcu Yönetimi</div>
+      <div class="ns">Sistem</div>
+      <div class="ni" onclick="g('pg-ad-kusak')">Kuşak Seviyeleri</div>
+      <div class="ns">Hesap</div>
+      <div class="ni" onclick="g('pg-ad-hesap')">⚙️ Hesap Ayarları</div>
+    </nav>
+    <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+  </div>
+  <div class="mc">
+    <div class="mh"><h3>Kullanıcı Yönetimi</h3><p>Tüm kullanıcıları görüntüleyin, ekleyin veya silin</p></div>
+    <div class="mb">
+      <div class="sg s3">
+        <div class="sc"><div class="sl">Toplam Kullanıcı</div><div class="sv" id="stat-toplam-kullanici">—</div></div>
+        <div class="sc bl"><div class="sl">Antrenör</div><div class="sv" id="stat-antrenor">—</div></div>
+        <div class="sc gr"><div class="sl">Sporcu</div><div class="sv" id="stat-sporcu">—</div></div>
+      </div>
+      <div class="card">
+        <div class="ct">Yeni Kullanıcı Ekle</div>
+        <div class="fg2 g3">
+          <div class="f"><label>Ad Soyad</label><input type="text" id="admin-adsoyad" placeholder="Ad Soyad"/></div>
+          <div class="f"><label>Kullanıcı Adı</label><input type="text" id="admin-kullaniciadi" placeholder="kullanici_adi"/></div>
+          <div class="f"><label>Rol</label><select id="admin-rol"><option>Sporcu</option><option>Antrenör</option><option>Admin</option></select></div>
+        </div>
+        <div class="fg2 g2">
+          <div class="f"><label>Şifre</label><input type="password" id="admin-sifre" placeholder="********"/></div>
+        </div>
+        <div class="br"><button class="btn bp" onclick="adminKullaniciEkle()">Kullanıcı Ekle</button><button class="btn bo">İptal</button></div>
+      </div>
+      <div class="card">
+        <div class="ct">Kullanıcı Listesi</div>
+        <div class="sb2"><input class="si" type="text" placeholder="Kullanıcı ara..."/><button class="btn bp">Ara</button></div>
+        <div class="tw"><table>
+          <thead><tr><th>Ad Soyad</th><th>Kullanıcı Adı</th><th>Rol</th><th>Durum</th><th>İşlem</th></tr></thead>
+          <tbody id="kullanici-tbody"></tbody>
+        </table></div>
+        <div style="margin-top:9px;font-size:12px;color:var(--muted);text-align:right;">5 / 27 kullanici gosteriliyor</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><div class="page" id="pg-ad-sporcu">
+<div class="al">
+  <div class="sb">
+    <div class="sb-l"><h2>T-Smart <span>2.0</span></h2><p>Taekwondo Yönetim Sistemi</p></div>
+    <div class="sb-u"><div class="uav" style="background:#dc3545;">AD</div><div class="ui"><p>Admin</p><span>Sistem Yöneticisi</span></div></div>
+    <nav class="sb-n">
+      <div class="ns">Yönetim</div>
+      <div class="ni" onclick="g('pg-ad-video')">Video Yönetimi</div>
+      <div class="ni" onclick="g('pg-ad-kullanici')">Kullanıcılar</div>
+      <div class="ni a" onclick="g('pg-ad-sporcu')">Sporcu Yönetimi</div>
+      <div class="ns">Sistem</div>
+      <div class="ni" onclick="g('pg-ad-kusak')">Kuşak Seviyeleri</div>
+      <div class="ns">Hesap</div>
+      <div class="ni" onclick="g('pg-ad-hesap')">⚙️ Hesap Ayarları</div>
+    </nav>
+    <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+  </div>
+  <div class="mc">
+    <div class="mh"><h3>Sporcu Yönetimi</h3><p>Sporcu kuşak seviyelerini ve bilgilerini yönetin</p></div>
+    <div class="mb">
+      <div class="sg s3">
+        <div class="sc"><div class="sl">Toplam Sporcu</div><div class="sv">0</div></div>
+        <div class="sc gr"><div class="sl">Aktif Kulüp</div><div class="sv">0</div></div>
+        <div class="sc bl"><div class="sl">Kuşak Çeşidi</div><div class="sv">9</div></div>
+      </div>
+      <div class="tc">
+        <div class="card">
+          <div class="ct">Kuşak Dağılımı</div>
+          <div class="bc">
+            <div class="bg2"><div class="bv2">6</div><div class="bf" style="height:25%;background:#ccc;"></div><div class="bl2">Beyaz</div></div>
+            <div class="bg2"><div class="bv2">9</div><div class="bf" style="height:38%;background:#fdd835;"></div><div class="bl2">Sarı</div></div>
+            <div class="bg2"><div class="bv2">5</div><div class="bf" style="height:21%;background:linear-gradient(135deg,#facc15,#84cc16);"></div><div class="bl2">Sarı-Yeşil</div></div>
+            <div class="bg2"><div class="bv2">3</div><div class="bf" style="height:13%;background:#43a047;"></div><div class="bl2">Yeşil</div></div>
+            <div class="bg2"><div class="bv2">1</div><div class="bf" style="height:5%;background:#263238;"></div><div class="bl2">Siyah</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Kuşak Güncelle</div>
+          <div class="fg2 g3">
+            <div class="f"><label>Sporcu</label><select id="admin-kusak-sporcu"></select></div>
+            <div class="f"><label>Mevcut Kuşak</label><select id="admin-mevcut-kusak" disabled></select></div>
+            <div class="f"><label>Yeni Kuşak</label><select id="admin-yeni-kusak"></select></div>
+          </div>
+          <div class="br"><button class="btn bp" onclick="adminKusakGuncelle()">Güncelle</button><button class="btn bo" onclick="syncAdminMevcutKusak()">İptal</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ct">Tüm Sporcular</div>
+        <div class="tw"><table>
+          <thead><tr><th>Sporcu</th><th>Kulüp</th><th>Kuşak</th><th>İşlem</th></tr></thead>
+          <tbody id="admin-sporcu-tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><div class="page" id="pg-ad-kusak">
+<div class="al">
+  <div class="sb">
+    <div class="sb-l"><h2>T-Smart <span>2.0</span></h2><p>Taekwondo Yönetim Sistemi</p></div>
+    <div class="sb-u"><div class="uav" style="background:#dc3545;">AD</div><div class="ui"><p>Admin</p><span>Sistem Yöneticisi</span></div></div>
+    <nav class="sb-n">
+      <div class="ns">Yönetim</div>
+      <div class="ni" onclick="g('pg-ad-video')">Video Yönetimi</div>
+      <div class="ni" onclick="g('pg-ad-kullanici')">Kullanıcılar</div>
+      <div class="ni" onclick="g('pg-ad-sporcu')">Sporcu Yönetimi</div>
+      <div class="ns">Sistem</div>
+      <div class="ni a" onclick="g('pg-ad-kusak')">Kuşak Seviyeleri</div>
+      <div class="ns">Hesap</div>
+      <div class="ni" onclick="g('pg-ad-hesap')">⚙️ Hesap Ayarları</div>
+    </nav>
+    <div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div>
+  </div>
+  <div class="mc">
+    <div class="mh"><h3>Kuşak Seviyeleri</h3><p>Kuşak seviyelerini ve gereksinimlerini yonetin</p></div>
+    <div class="mb">
+      <div class="card">
+        <div class="ct">Kuşak Seviyeleri</div>
+        <div class="tw"><table>
+          <thead><tr><th>Kuşak</th><th>Renk</th><th>Durum</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge bwh">Beyaz Kuşak</span></td><td><div style="width:24px;height:24px;border-radius:50%;background:#fff;border:2px solid #ccc;display:inline-block;vertical-align:middle;"></div></td><td>0</td><td>0</td><td>-</td><td><span class="badge bss">Aktif</span></td></tr>
+            <tr><td><span class="badge byy">Sarı Kuşak</span></td><td><div style="width:24px;height:24px;border-radius:50%;background:#fdd835;border:2px solid #f9a825;display:inline-block;vertical-align:middle;"></div></td><td>5</td><td>3</td><td>3.5</td><td><span class="badge bss">Aktif</span></td></tr>
+            <tr><td><span class="badge bsy">Sarı-Yeşil Kuşak</span></td><td><div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#facc15,#84cc16);border:2px solid #65a30d;display:inline-block;vertical-align:middle;"></div></td><td>10</td><td>7</td><td>2.5</td><td><span class="badge bss">Aktif</span></td></tr>
+            <tr><td><span class="badge bgg">Yeşil Kuşak</span></td><td><div style="width:24px;height:24px;border-radius:50%;background:#43a047;border:2px solid #2e7d32;display:inline-block;vertical-align:middle;"></div></td><td>20</td><td>14</td><td>2.0</td><td><span class="badge bss">Aktif</span></td></tr>
+            <tr><td><span class="badge bkk">Siyah Kuşak</span></td><td><div style="width:24px;height:24px;border-radius:50%;background:#263238;border:2px solid #000;display:inline-block;vertical-align:middle;"></div></td><td>35</td><td>25</td><td>1.0</td><td><span class="badge bss">Aktif</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="page" id="pg-ad-hesap"><div class="al"><div class="sb"><div class="sb-l"><h2>T-Smart <span>2.0</span></h2><p>Taekwondo Yönetim Sistemi</p></div><div class="sb-u"><div class="uav" style="background:#dc3545;">AD</div><div class="ui"><p>Admin</p><span>Sistem Yöneticisi</span></div></div><nav class="sb-n"><div class="ns">Yönetim</div><div class="ni" onclick="g('pg-ad-video')">Video Yönetimi</div><div class="ni" onclick="g('pg-ad-kullanici')">Kullanıcılar</div><div class="ni" onclick="g('pg-ad-sporcu')">Sporcu Yönetimi</div><div class="ns">Sistem</div><div class="ni" onclick="g('pg-ad-kusak')">Kuşak Seviyeleri</div><div class="ns">Hesap</div><div class="ni a" onclick="g('pg-ad-hesap')">⚙️ Hesap Ayarları</div></nav><div class="sb-f"><button class="lo" onclick="doLogout()">Çıkış Yap</button></div></div><div class="mc"><div class="mh"><h3>Hesap Ayarları</h3><p>Admin profil ve güvenlik ayarları</p></div><div class="mb"><div class="card"><div class="ct">Admin Bilgileri</div><div class="fg2 g2"><div class="f"><label>Ad Soyad</label><input value="Admin"></div><div class="f"><label>Kullanıcı Adı</label><input value="admin"></div></div><div class="fg2 g2"><div class="f"><label>Rol</label><input value="Sistem Yöneticisi" disabled></div></div><div class="br"><button class="btn bp" onclick="t('Admin hesabı kaydedildi!')">Kaydet</button><button class="btn bo" onclick="doLogout()">Çıkış Yap</button></div></div></div></div></div></div>
+
+<script src="script.js?v=kusak-seviyeleri-sade"></script>
