@@ -18,10 +18,7 @@ Projenin yerel bilgisayarda çalıştırılması için aşağıdaki adımların 
 3.  **Dosya Aktarımı:** Proje dosyalarını sunucunun kök dizinine (`htdocs` klasörü) kopyalayın.
 4.  **Çalıştırma:** Tarayıcı üzerinden `localhost` (MAMP kullanılıyorsa `localhost:8888`) adresine giderek sisteme erişin.
 
-## 👥 3. Proje Grubu
-* **Yiğit Doğan** (20242452010)
-* **Sefer Ege Kaya** (20242452020)
-* **Ahmet Eren Yakut** (20242452034)
+
 
 ---
 *Not: Bu repo ve dökümantasyon geliştirme sürecinin bir parçası olarak oluşturulmuştur.*
